@@ -18,7 +18,7 @@ struct NodeF {
     void killSelf(){
         this->data = NULL;
         delete this->next;
-    }    
+    }
 };
 
 #endif
