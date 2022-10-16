@@ -8,9 +8,9 @@ struct Transaction {
     long long int date;
 
     Transaction()=default;
-
+    
     Transaction( string s1, string s2, double num, long long int date_ ):
-            str1(s1), str2(s2), number(num), date(date_) {
+    str1(s1), str2(s2), number(num), date(date_) {
 
     }
 

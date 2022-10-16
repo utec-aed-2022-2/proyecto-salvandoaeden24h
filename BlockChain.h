@@ -13,14 +13,34 @@ class BlockChain {
         return genesis;
     }
 
-public:
+    void alter_block_by_index( int index, Transaction* new_data, Block* bloque ) {
+        if (bloque->get_index() == index) {
+            bloque->set_data(new_data);
+            bloque->remake_hash_code();
+        } else {
+            alter_block_by_index( index, new_data, bloque->prev);
+        }
+        bloque->remake_hash_code();
+    }
+
+    void fix_for_index(int index, Block* bloque) {
+        if (bloque->get_index() == index) {
+            bloque->mine();
+            return ;
+        } else {
+            fix_for_index(index, bloque->prev);
+        }
+        bloque->mine();
+    }
+
+    public:
 
     BlockChain() {
         Block* genesis = createGenesisBlock();
         this->chain = genesis;
         this->size = 1;
     }
-
+    
     void insertBlock(Transaction* trans) {
         int index = this->size;
         Block* new_block = new Block(trans, index, chain);
@@ -37,7 +57,6 @@ public:
             }
 
             if (this->size > 1 && temp->get_prev_hash() != temp->prev->get_hashcode()) {
-                cout << "PREV??" << endl;
                 return false;
             }
             temp = temp->prev;
@@ -55,13 +74,11 @@ public:
 
     }
 
-    /*
-    void try_hack_index(int index, Transaction* hackeo) {
-        Block* temp = this->chain;
+    void alter_block_by_index(int index, Transaction* new_data) {
+        alter_block_by_index(index, new_data, this->chain);
+    }
 
-        while(temp->get_index() != index) {
-            temp = temp->prev;
-
-        }
-    }*/
+    void fix_for_index(int index) {
+        fix_for_index(index, this->chain );
+    }
 };
