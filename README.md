@@ -28,4 +28,15 @@ La blochain toma relevancia en la seguridad de los datos de las transacciones. S
 Para implementar la blockhain se uzó un foward list siendo los bloques los nodos. 
 Para asegurar la integridad de los datos, se aplicó el algoritmo SHA256 sobre la concatenación de los datos que conforman el bloque, los cuales contienen la fecha, el emisor, el receptor y el monto. El proof of work se aplicó al forzar que el hashcode generado para que un bloque sea aceptado empiece con 4 ceros consecutivos, de modo que de no hacerlo se reace el hashcode. Al crear y modificar un bloque, debe aplicarse lo anteriormente mencionado. Además, al modificar la información de un bloque, el hashcode de todos los bloques que le secundan deben volverse a calcular. Por último, el utilizar un foward list para representar la blockain, de querer acceder o modificar la información de los bloques más lejanos, se debe hacer un recorrido a lo largo de la estructura, de modo que tardará más en función a su posición.
 
-### 
+### Bibliografía
+
+Dev Tech Guy. Cryptocurrency (Bitcoin, Ethereum, Ripple) Blockchain in 30 minutes in C++! (Part 1). Extraído de: https://youtu.be/2VDQeQfh4Hs. Recuperado el 03/10/2022.
+
+Porat, A; Pratap, A; Shah, P; Adkar, V. Blockchain Consensus: An analysis of
+Proof-of-Work and its applications. Stanford University. 
+
+Java T Point. (s/f.). Blockchain Proof of work. Extraído de: https://www.javatpoint.com/blockchain-proof-of-work#:~:text=Proof%20of%20work%20can%20be%20implemented%20in%20a%20blockchain%20by,for%20making%20the%20block%20valid. Recuperado el 03/10/22.
+
+OpenSSL. (s/f.). Cripto. Extraído de: https://www.openssl.org/docs/man3.0/man7/crypto.html. Recopilado el 03/10/22.
+
+Arora, S. (Septiembre, 22). What Is Bitcoin Mining: How Does it Work, Proof of Work, Mining Hardware and More. SimpliLearn. Extraído de: https://www.simplilearn.com/bitcoin-mining-explained-article. Recuperado el 04/10/22.
