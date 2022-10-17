@@ -33,7 +33,7 @@ Para asegurar la integridad de los datos, se aplicó el algoritmo SHA256 sobre l
 Dev Tech Guy. Cryptocurrency (Bitcoin, Ethereum, Ripple) Blockchain in 30 minutes in C++! (Part 1). Extraído de: https://youtu.be/2VDQeQfh4Hs. Recuperado el 03/10/2022.
 
 Porat, A; Pratap, A; Shah, P; Adkar, V. Blockchain Consensus: An analysis of
-Proof-of-Work and its applications. Stanford University. 
+Proof-of-Work and its applications. Stanford University. Extraído de: https://www.scs.stanford.edu/17au-cs244b/labs/projects/porat_pratap_shah_adkar.pdf. Recopilado el 03/10/22 
 
 Java T Point. (s/f.). Blockchain Proof of work. Extraído de: https://www.javatpoint.com/blockchain-proof-of-work#:~:text=Proof%20of%20work%20can%20be%20implemented%20in%20a%20blockchain%20by,for%20making%20the%20block%20valid. Recuperado el 03/10/22.
 
