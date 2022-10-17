@@ -22,10 +22,11 @@ host).
 Se implementó una blockchain similar a la de Bitcoin para hacer transacciones monetarias, buscando la securidad y confidencialidad de las transacciones realizadas, pero a su vez dando la posibilidad de alterarlas.
 
 ### Importancia del Blockchain en el dominio de datos elegido
-La blochain toma relevancia en la seguridad de los datos de las transacciones. Si bien son públicas, se necesita aplicar cierta fuerza para poder obtener los datos, y alterarlos, lo que desincentiva el hacerlo.  
+La blochain toma relevancia en la seguridad de los datos de las transacciones. Si bien son públicas, se necesita aplicar cierta fuerza para poder obtener generar nuevas transacciones, y más fuerza para modificarlas. Esto beneficia en que, mientras más robusta sea la blockhain, mayor será la fuerza necesaria para modificar los datos contenidos en ella, lo que desinsentiva el hacerlo. 
 
 ### Explicación de la estructura de datos del Blockchain y la estrategia para asegurar la integridad de su contenido. Además, indicar cómo se implementó el proof of work.
-Para implementar la blockhain se uzó un foward list siendo los bloques los nodos. 
+Dado que cada bloque hace referencia a al bloque anterior en el campo llamado "Prev" o bloque padre, se optó por estructurar la blockhain en forma de __Forward List__, de tal manera que se cumpla la particularidad requerida, siendo cada bloque de la blockhain un nodo de la estructura.
+ 
 Para asegurar la integridad de los datos, se aplicó el algoritmo SHA256 sobre la concatenación de los datos que conforman el bloque, los cuales contienen la fecha, el emisor, el receptor y el monto. El proof of work se aplicó al forzar que el hashcode generado para que un bloque sea aceptado empiece con 4 ceros consecutivos, de modo que de no hacerlo se reace el hashcode. Al crear y modificar un bloque, debe aplicarse lo anteriormente mencionado. Además, al modificar la información de un bloque, el hashcode de todos los bloques que le secundan deben volverse a calcular. Por último, el utilizar un foward list para representar la blockain, de querer acceder o modificar la información de los bloques más lejanos, se debe hacer un recorrido a lo largo de la estructura, de modo que tardará más en función a su posición.
 
 ### Bibliografía
