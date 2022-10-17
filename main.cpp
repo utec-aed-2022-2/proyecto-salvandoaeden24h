@@ -14,7 +14,7 @@ int main() {
     Transaction* data6 = new Transaction("Paolo", "Pipi", 918273.126534, 87162387612381276);
     Transaction* data7 = new Transaction("Kevin", "Pupu", 918273.127635, 817276387162387612);
     Transaction* data8 = new Transaction("Explorer", "Purple", 123123.234, 817623876218736);
-    
+
     Bitcoin.insertBlock(data1);
     Bitcoin.insertBlock(data2);
     Bitcoin.insertBlock(data3);
@@ -28,12 +28,12 @@ int main() {
 
     Transaction* hack = new Transaction("Heider", "pipipi", 81726387.1231, 817236817263);
 
-    Bitcoin.alter_block_by_index(4, hack);
+    Bitcoin.alter_block_by_index(4, hack);//altero el bloque de índice 4
     Bitcoin.printBlockChain();
-    cout << "\nIs chain valid " << Bitcoin.isChainValid() << endl;
+    cout << "\nIs chain valid " << Bitcoin.isChainValid() << endl; //imprime que no es válido
 
-    Bitcoin.fix_for_index(4);
+    Bitcoin.fix_for_index(4); //arregla la blockhain a partir del índice 4
     Bitcoin.printBlockChain();
-    cout << "\nIs chain valid " << Bitcoin.isChainValid() << endl;
+    cout << "\nIs chain valid " << Bitcoin.isChainValid() << endl; //imprime que es válido
 
 }
