@@ -1,6 +1,5 @@
 #include <iostream>
 #include "block.h"
-#include "forward.h"
 
 class BlockChain {
     Block* chain = nullptr; //el chain es el puntero al último bloque que hay (un puntero al head del forward list)
@@ -9,11 +8,13 @@ class BlockChain {
 
     Block* createGenesisBlock() { //crea un blocke génesis (FECHA VACÍA, TRANSACCIONES 0, FECHA 0, ÍNDICE 0, PREV NULL)
         Transaction* data = new Transaction("", "", 0, 0);
-        Block* genesis = new Block(data, 0, nullptr);
+        Information* info = new Information();
+        info->new_transaction(data);
+        Block* genesis = new Block(info, 0, nullptr);
         return genesis;
     }
 
-    void alter_block_by_index( int index, Transaction* new_data, Block* bloque ) { // Altera el bloque a partir del índice, por lo que hace una búsqueda.
+    void alter_block_by_index( int index, Information* new_data, Block* bloque ) { // Altera el bloque a partir del índice, por lo que hace una búsqueda.
         //Función recursiva
         if (bloque->get_index() == index) { //si el índice del bloque es correcto: alteras info y vuelves hacer el hash
             bloque->set_data(new_data);
@@ -41,7 +42,7 @@ class BlockChain {
         this->size = 1; // el primer bloque
     }
 
-    void insertBlock(Transaction* trans) { // para insertar debo insertar una transacción que estará contenida en el bloque
+    void insertBlock(Information* trans) { // para insertar debo insertar una transacción que estará contenida en el bloque
         int index = this->size; // empieza desde el índice 1 (revisar BlockChain())
         Block* new_block = new Block(trans, index, chain); // para crear el bloque le paso la transacción, el index y el chain que será puesto por delante
         this->chain = new_block; // el hain ahora es el nuevo bloque
@@ -74,7 +75,7 @@ class BlockChain {
 
     }
 
-    void alter_block_by_index(int index, Transaction* new_data) { //función recursiva que hace que la función del index
+    void alter_block_by_index(int index, Information* new_data) { //función recursiva que hace que la función del index
         alter_block_by_index(index, new_data, this->chain);
     }
 
