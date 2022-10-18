@@ -1,6 +1,6 @@
 #include <string>
 #include "hash.h"
-#include "transaction.h"
+#include "information.h"
 using namespace std;
 
 class Block {
@@ -8,7 +8,7 @@ class Block {
     int nonce = 0; //
     string hashCode; //código hasheado
     string prevHashCode; //código hasheado del código anterior
-    Transaction* data; // es la colección de información unida en un string
+    Information* data; // es la colección de información unida en un string
 
     string generate_hash() { // retorna el código hash generado por todo el bloque, mas aún no es asignado. (Retorna lo que debería ser el hash)
         //si es el bloque génesis retorna 0 x64
@@ -17,14 +17,14 @@ class Block {
         if (this->prev == nullptr) {
             return "0000000000000000000000000000000000000000000000000000000000000000";
         } else {
-            information = to_string(this->nonce) + to_string(this->index) + this->prev->get_hashcode() + data->get_info_to_hash();
+            information = to_string(this->nonce) + to_string(this->index) + this->prev->get_hashcode() + data->get_all_info();
         }
         return hash_information(information);
     }
 
     public:
     Block* prev; // un puntero al bloque anterior
-    Block(Transaction* data_, int i, Block* previous): index(i), prev(previous), data(data_) { //constructor del bloque
+    Block(Information* data_, int i, Block* previous): index(i), prev(previous), data(data_) { //constructor del bloque
         //le paso la data previamente contruida + índice del nuevo bloque + índice al bloque anterior
         if (previous != nullptr) {
             this->prevHashCode = previous->get_hashcode();
@@ -59,7 +59,7 @@ class Block {
         return this->index;
     }
 
-    void set_data(Transaction* new_data) { //asigna a la trasacción
+    void set_data(Information* new_data) { //asigna a la trasacción
         this->data = new_data;
     }
 
