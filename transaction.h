@@ -1,25 +1,30 @@
 #include <iostream>
 #include <string>
+#include <chrono>
+#include <ctime>
 using namespace std;
 
 struct Transaction {
-    string str1, str2;
-    double number;
-    long long int date;
+    string emisor, receptor;
+    double monto;
+    time_t date;
 
     Transaction()=default;
     
-    Transaction( string s1, string s2, double num, long long int date_ ):
-    str1(s1), str2(s2), number(num), date(date_) {
-
+    Transaction( string s1, string s2, double num):
+    emisor(s1), receptor(s2), monto(num) {
+        this->date = time(nullptr);
     }
 
+    Transaction( string s1, string s2, double num, time_t _date):
+    emisor(s1), receptor(s2), monto(num), date(_date) {}
+
     string get_info_to_hash() {
-        string result = this->str1 + this->str2 + to_string(this->number) + to_string(this->date);
+        string result = this->emisor + this->receptor + to_string(this->monto) + to_string(this->date);
         return result;
     }
 
     void print_transaction() {
-        cout << '(' << str1 << ',' << str2 << ',' << number << ',' << date << ')' << endl;
+        cout << '(' << emisor << ',' << receptor << ',' << monto << ',' << date << ')' << endl;
     }
 };

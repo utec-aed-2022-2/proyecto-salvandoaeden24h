@@ -7,7 +7,7 @@ class BlockChain {
     int size; //size del blockhain
 
     Block* createGenesisBlock() { //crea un blocke génesis (FECHA VACÍA, TRANSACCIONES 0, FECHA 0, ÍNDICE 0, PREV NULL)
-        Transaction* data = new Transaction("", "", 0, 0);
+        Transaction* data = new Transaction("", "", 0);
         Information* info = new Information();
         info->new_transaction(data);
         Block* genesis = new Block(info, 0, nullptr);
