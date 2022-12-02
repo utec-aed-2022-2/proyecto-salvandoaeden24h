@@ -72,24 +72,35 @@ class Block {
         return false;
     }
 
-    void print_block() { //imprime el bloque
+    void print_block()
+    { // imprime el bloque
         cout << "Indice: " << this->index << endl;
         cout << "Nonce: " << this->nonce << endl;
         cout << "HashCode: " << this->hashCode << endl;
         cout << "Prev HashCode: " << this->prevHashCode << endl;
         cout << "Most recent operation using BTree: " << this->data->get_most_recent_transaction() << endl;
-        cout << "Biggest operation using BTree: "<< this->data->get_biggest_transaction() << endl;
+        cout << "Biggest operation using BTree: " << this->data->get_biggest_transaction() << endl;
         cout << "Range search with amount between (543.0, 7062.95):" << endl;
-        for (auto transaction: this->data->get_range_search_monto(543, 7062.85)) {
+        for (auto transaction : this->data->get_range_search_monto(543, 7062.85))
+        {
             cout << transaction << endl;
         }
         cout << endl;
 
         cout << "Range search with date between (1624577882000, 1655979226000):" << endl;
-        for (auto transaction: this->data->get_range_search_date(1624577882000, 1655979226000)) {
+        for (auto transaction : this->data->get_range_search_date(1624577882000, 1655979226000))
+        {
             cout << transaction << endl;
         }
         cout << endl;
+
+        cout << "Al transactions from {name} using hash:" << endl;
+        for (auto transaction : this->data->get_transactions_emisor("Busca un nombre del MOCK_DATA_DEMO.csv"))
+        {
+            cout << transaction << endl;
+        }
+        cout << endl;
+
         this->data->print_transaction();
         cout << endl;
     }

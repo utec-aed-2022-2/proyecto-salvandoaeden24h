@@ -3,6 +3,7 @@
 #include "classes/btree.h"
 #include "classes/avl.h"
 #include "transaction.h"
+#include "classes/chainhash.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ class Information {
     BTree<Transaction*>* btree_info_order_by_amount;
     AVLTree<Transaction*>* avl_order_by_date;
     AVLTree<Transaction*>* avl_order_by_monto;
+    ChainHash<string, double, long long int>* chain_hash_name;
     
     public:
     Information() {
@@ -57,6 +59,7 @@ class Information {
         this->btree_info_order_by_amount->insert(trans);
         this->avl_order_by_date->insert(trans);
         this->avl_order_by_monto->insert(trans);
+        this->chain_hash_name->insert(trans->emisor, trans->receptor, trans->monto, trans->date);
     }
 
     Transaction* get_most_recent_transaction() {
@@ -101,5 +104,9 @@ class Information {
         for (int i = 0; i < size; i++) {
             (this->info)[i]->print_transaction();
         }
+    }
+
+    vector<Transaction*> get_transactions_emisor(string name) {
+        return this->chain_hash_name->get(name);
     }
 };
