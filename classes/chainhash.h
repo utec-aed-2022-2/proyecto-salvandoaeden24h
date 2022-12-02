@@ -100,7 +100,7 @@ public:
         size_t hashcode = getHash(emisor);
         int index = hashcode % capacity;
         for(auto it : array[index]){
-            if(it.key == key){
+            if(it.emisor == emisor){
                 erase(array[index].it);
                 size--;
             }
