@@ -68,17 +68,28 @@ en bloques y unirlos.
 Dado que cada bloque hace referencia a al bloque anterior en el campo llamado "Prev" o bloque padre, 
 se optó por estructurar la blockhain en forma de __Forward List__, de tal manera que se cumpla la 
 particularidad requerida, siendo cada bloque de la blockhain un nodo de la estructura.
- 
+
+![Estructura de los bloques y la blockchain](img/img1.png)
+
 Para asegurar la integridad de los datos, se aplicó el algoritmo SHA256 sobre la concatenación 
 de los datos que conforman el bloque, los cuales contienen la fecha, el emisor, el receptor y el 
 monto. Para dificultar aún más su alteración se optó por forzar que el hashcode generado 
 para que un bloque sea aceptado  empiece con 4 ceros consecutivos, de modo que de no hacerlo se reace 
 el hashcode. 
+
+![Transacción e información](img/img2.png)
+
+
 Al crear y modificar un bloque, debe aplicarse lo anteriormente mencionado. Además, al modificar la información
 de un bloque, el hashcode de todos los bloques que le secundan, llamados también los nodos hijos, deben volverse a calcular. Por último,
 el utilizar un foward list para representar la blockain, de querer acceder o modificar la información
 de los bloques más lejanos, se debe hacer un recorrido a lo largo de la estructura, de modo que 
 tardará más en función a su posición.
+
+Por otro lado, information puede ser accedida y visualizarse de 5 maneras diferentes como se logra ver en las siguientes imágenes.
+![IMG3](img/img3.png)
+![IMG4](img/img4.png)
+![IMG5](img/img5.png)
 
 ### Bibliografía
 
