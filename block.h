@@ -79,6 +79,17 @@ class Block {
         cout << "Prev HashCode: " << this->prevHashCode << endl;
         cout << "Most recent operation using BTree: " << this->data->get_most_recent_transaction() << endl;
         cout << "Biggest operation using BTree: "<< this->data->get_biggest_transaction() << endl;
+        cout << "Range search with amount between (543.0, 7062.95):" << endl;
+        for (auto transaction: this->data->get_range_search_monto(543, 7062.85)) {
+            cout << transaction << endl;
+        }
+        cout << endl;
+
+        cout << "Range search with date between (1624577882000, 1655979226000):" << endl;
+        for (auto transaction: this->data->get_range_search_date(1624577882000, 1655979226000)) {
+            cout << transaction << endl;
+        }
+        cout << endl;
         this->data->print_transaction();
         cout << endl;
     }
