@@ -67,7 +67,7 @@ void proof_of_work() {
 
 }
 
-void get_transaccions_from_csv(string filename) {
+void get_transaccions_from_csv(string filename, int min, int max) {
     string line;
     BlockChain Bitcoin;
 
@@ -77,7 +77,7 @@ void get_transaccions_from_csv(string filename) {
 
     ifstream input_file(filename);
 
-    int n = rand()%51 + 20;
+    int n = rand()%(max - min+ 1) + min;
 
     bool skip = true;
     while (getline(input_file, line)){
@@ -102,6 +102,7 @@ void get_transaccions_from_csv(string filename) {
 
             if (n == 0) {
                 n = rand()%51 + 20;
+                info->new_transaction(data);
                 Bitcoin.insertBlock(info);
                 info = new Information();
             } else {
@@ -110,6 +111,7 @@ void get_transaccions_from_csv(string filename) {
             }
         }
     }
+    Bitcoin.insertBlock(info);
     input_file.close();
     Bitcoin.printBlockChain();
     cout << "\nIs chain valid " << Bitcoin.isChainValid() << endl;
@@ -117,6 +119,6 @@ void get_transaccions_from_csv(string filename) {
 
 int main() {
     srand(time(nullptr));
-    get_transaccions_from_csv("MOCK_DATA_DEMO.csv");
+    get_transaccions_from_csv("MOCK_DATA_DEMO.csv", 30, 50);
     return 0;
 }

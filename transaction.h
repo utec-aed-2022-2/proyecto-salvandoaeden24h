@@ -25,6 +25,27 @@ struct Transaction {
     }
 
     void print_transaction() {
-        cout << '(' << emisor << ',' << receptor << ',' << monto << ',' << date << ')' << endl;
+        string dt = asctime(localtime(&this->date));
+        dt.pop_back();
+        cout << '(' << emisor << ',' << receptor << ',' << monto << ',' << dt << ')' << endl;
     }
 };
+
+bool operator < (Transaction t1, Transaction* t) {
+    return t1.date < t->date;
+}
+
+bool operator > (Transaction t1, Transaction* t) {
+    return t1.date > t->date;
+}
+
+bool operator == (Transaction t1, Transaction* t) {
+    return t1.date == t->date;
+}
+
+ostream& operator << (ostream& os, Transaction* t) {
+    string dt = asctime(localtime(&t->date));
+    dt.pop_back();
+    os << '(' << t->emisor << ',' << t->receptor << ',' << t->monto << ',' << dt << ')';
+    return os;
+}

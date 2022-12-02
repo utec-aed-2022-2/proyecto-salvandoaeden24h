@@ -77,6 +77,8 @@ class Block {
         cout << "Nonce: " << this->nonce << endl;
         cout << "HashCode: " << this->hashCode << endl;
         cout << "Prev HashCode: " << this->prevHashCode << endl;
+        cout << "Most recent operation using BTree: " << this->data->get_most_recent_transaction() << endl;
+        cout << "Biggest operation using BTree: "<< this->data->get_biggest_transaction() << endl;
         this->data->print_transaction();
         cout << endl;
     }
