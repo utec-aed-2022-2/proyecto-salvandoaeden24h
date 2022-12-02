@@ -1,35 +1,24 @@
 #include <functional>
 #include <vector>
 #include "forward.h"
+#include "transaction.h"
 using namespace std;
 
 const float maxFillFactor = 0.5;
 const int maxCollision = 3;
 
-template<typename TK, typename TV>
+template<typename EyR, typename MT, typename dt>
 class ChainHash
 {
-private:    
-    struct Entry{
-        TK key;
-        TV value;
-        size_t hashcode;
-        Entry(){}
-        Entry(TK _k, TV _v, size_t h){
-            key = _k;
-            value = _v;
-            hashcode = h;
-        }
-    };
-    ForwardList<Entry>* array; //array of foward list (entry)
-    vector<size_t> buckethash; //index, hashcode -> almacena pos y hashcode para acceder por índice
+private: 
+    ForwardList<Transaction>* array; //array of foward list (entry)
     int capacity;
     int size;
-    hash<TK> getHash; // get hash funtion
+    hash<EyP> getHash; // get hash funtion
 
-    bool esta(TK key, TV value, int index){
+    bool esta(EyR emisor, EyR receptor, MT monto, dt date, int index){
         for (auto it: array[index]){
-            if(it.key == key){
+            if(it.emisor == emisor && it.receptor == receptor && it.monto == monto && it.date == date){
                 return true;
             }
         }
@@ -39,7 +28,7 @@ private:
 public:
     ChainHash(int _capacity = 5){
         this->capacity = _capacity;
-        this->array = new ForwardList<Entry>[this->capacity];
+        this->array = new ForwardList<Transaction>[this->capacity];
         this->size = 0;
     }    
 
@@ -47,51 +36,57 @@ public:
         return size / (capacity * maxCollision);
     }
 
-    void insert(TK key, TV value){
-        if(fillFactor() >= maxFillFactor) rehashing();
-        size_t hashcode = getHash(key);
+    void insert(EyR emisor, EyR receptor, MT monto, dt date){
+        if (fillFactor() >= maxFillFactor) rehashing();
+        size_t hashcode = getHash(emisor);
+
         int index = hashcode % capacity;
-        if (!esta(key, value, index)) {
-            array[index].push_front(Entry(key, value, hashcode));
-            buckethash.push_back(hashcode);
+        if (!esta(emisor, receptor, monto, date, index)) {
+            array[index].push_front(Transaction(emisor, receptor, monto, date));
             size++;
         }   
     }
 
-    TV get(TK key){
-        size_t hashcode = getHash(key);
+    vector<Transaction> get(EyR emisor){
+        vector<Transaction> transacciones;
+
+        size_t hashcode = getHash(emisor);
         int index = hashcode % capacity;
-        //TODO: iterar en la lista array[index] 
+
         for (auto it: array[index]){
-            if(it.key == key){
-                return it.value;
+            if(it.emisor == emisor){
+                transacciones.push_back(it);
             }
         }
+
+        return transacciones;
     }
     
-    TV& operator[](const TK& key){
-        size_t hash = getHash(key);
-        int index = hash % capacity;
-        for (Entry& entry : array[index]){
-            if (entry.key == key){
-                return key.value;
+    vector<Transaction> operator[](const EyR& emisor){
+        vector<Transaction> transacciones;
+
+        size_t hashcode = getHash(emisor);
+        int index = hashcode % capacity;
+
+        for (auto it: array[index]){
+            if(it.emisor == emisor){
+                transacciones.push_back(it);
             }
         }
-        throw ("No se encontro");
+
+        return transacciones;
     }
 
     void rehashing(){
 
         auto tempcapacity = capacity;
-        
         capacity*=2;
+        ForwardList<Transaction>* temp = new ForwardList<Transaction>[this->capacity*2];
 
-        ForwardList<Entry>* temp = new ForwardList<Entry>[this->capacity*2];
-        auto indx = 0;
         for(auto i = 0; i < tempcapacity; i++){
             for(auto it : array[i]){
-                int index = it.hashcode % capacity;
-                temp[index].push_front(Entry(it.key, it.value, it.hashcode));
+                int index = getHash(it.emisor) % capacity;
+                temp[index].push_front(Transaction(emisor, receptor, monto, date));
             }
         }
 
@@ -100,9 +95,9 @@ public:
 
     }
 
-    void remove(TK key){
-        //TODO
-        size_t hashcode = getHash(key);
+    void remove(EyR emisor){
+
+        size_t hashcode = getHash(emisor);
         int index = hashcode % capacity;
         for(auto it : array[index]){
             if(it.key == key){
@@ -120,16 +115,15 @@ public:
         return std::distance(array[i_bucket].begin(), array[i_bucket].end());
     }
     
-    typename ForwardList<Entry>::iterator begin(int i_bucket){
+    typename ForwardList<Transaction>::iterator begin(int i_bucket){
         return array[i_bucket].begin();
     }
 
-    typename ForwardList<Entry>::iterator end(int i_bucket){
+    typename ForwardList<Transaction>::iterator end(int i_bucket){
         return array[i_bucket].end();
     }
 
     ~ChainHash(){
-        //TODO: liberar cada lista
         delete[] this->array;
     }
 };
